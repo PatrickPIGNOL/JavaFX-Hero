@@ -8,7 +8,7 @@ public enum ETerrainType
 	Water("Water"),
 	Lava("Lava"),
 	Tree("Tree"),
-	Rocks("Rocks");
+	Rocks("Rocks"); 
 	
 	private String aLabel;
 	
