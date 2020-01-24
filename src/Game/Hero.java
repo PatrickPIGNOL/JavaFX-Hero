@@ -77,14 +77,14 @@ public class Hero
 			{
 				case Up:
 				{
-					if(true)
+					if(this.aY > 0)
 					{
-						
+						this.aY--;
 					}
 				}break;
 				case Right:
 				{
-					this.aDirection = EDirection.Right;
+					if(this.aX < this.aGameMap.)
 				}break;
 				case Down:
 				{
@@ -103,7 +103,7 @@ public class Hero
 		double vHorisontalTiles = this.aImage.getWidth() / this.aTileWidth;
 		double vXOffset = (this.aColor.ordinal() * 3) % vHorisontalTiles * this.aTileWidth;
 		double vYOffset = (int)(((this.aColor.ordinal() * 3) / vHorisontalTiles) + this.aDirection.ordinal()) * aTileHeight;
-		pGraphicsContext.drawImage(this.aImage, vXOffset, vYOffset, this.aTileWidth, this.aTileHeight, this.aX, this.aY, this.aTileWidth, this.aTileHeight);
+		pGraphicsContext.drawImage(this.aImage, vXOffset, vYOffset, this.aTileWidth, this.aTileHeight, this.aX * this.aTileWidth, this.aY * this.aTileHeight, this.aTileWidth, this.aTileHeight);
 	}
 
 	public void mKeyPress(KeyEvent e) 

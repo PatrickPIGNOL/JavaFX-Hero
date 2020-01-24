@@ -15,17 +15,15 @@ public class GameMap
 	private double aTileHeight;
 	private double aTileWidth;
 	private List<List<Integer>> aMap;
-	private List<List<Integer>> aLayer;
 	private double aMouseX;
 	private double aMouseY;
 	
-	public GameMap(String pFileName, double pTileWidth, double pTileHeight, List<List<Integer>> pMap,  List<List<Integer>> pLayer)
+	public GameMap(String pFileName, double pTileWidth, double pTileHeight, List<List<Integer>> pMap)
 	{
 		this.aImage = new Image(pFileName);
 		this.aTileWidth = pTileWidth;
 		this.aTileHeight = pTileHeight;
 		this.aMap = pMap;
-		this.aLayer = pLayer;
 	}
 	
 	public void mLoad()
@@ -52,6 +50,16 @@ public class GameMap
 	public double mTileHeight()
 	{
 		return this.aTileHeight;
+	}
+	
+	public int mWidth()
+	{
+		return this.aMap.get(0).size();
+	}
+	
+	public int mWidth()
+	{
+		return this.aMap.size();
 	}
 	
 	public ETerrainType mTerrainType(int pX, int pY)
@@ -110,7 +118,6 @@ public class GameMap
 			for(int vXIndex = 0; vXIndex < this.aMap.get(0).size(); vXIndex++)
 			{
 				int vValue = this.aMap.get(vYIndex).get(vXIndex);
-				int vLayer = this.aLayer.get(vYIndex).get(vXIndex);
 				double vXFrom = (int) (vValue % vX - 1);
 				double vYFrom = (int) (vValue / vX);
 				double vXLayer = (int) (vValue % vX - 1);

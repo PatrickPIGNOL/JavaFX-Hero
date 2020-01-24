@@ -21,7 +21,7 @@ public class Game
 	
 	public Game(List<List<Integer>> pMap, List<List<Integer>> pLayer)
 	{
-		this.aGameMap = new GameMap("tilesheet.png", 32.0, 32.0, pMap, pLayer);
+		this.aGameMap = new GameMap("tilesheet.png", 32.0, 32.0, pMap);
 		this.aHero = new Hero("characters.png", 32.0, 32.0, this.aGameMap);
 	}
  
