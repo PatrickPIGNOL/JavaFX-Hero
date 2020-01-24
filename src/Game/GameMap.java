@@ -57,7 +57,7 @@ public class GameMap
 		return this.aMap.get(0).size();
 	}
 	
-	public int mWidth()
+	public int mHeight()
 	{
 		return this.aMap.size();
 	}
