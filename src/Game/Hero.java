@@ -84,7 +84,10 @@ public class Hero
 				}break;
 				case Right:
 				{
-					if(this.aX < this.aGameMap.)
+					if(this.aX < this.aGameMap.mWidth())
+					{
+						
+					}
 				}break;
 				case Down:
 				{
