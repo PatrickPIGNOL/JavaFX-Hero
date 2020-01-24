@@ -14,7 +14,9 @@ public class Hero
 	private double aTileWidth;
 	private double aTileHeight;
 	private boolean aMoving;
+	private double aMoveOffset;
 	private GameMap aGameMap;
+	private double aSpeed;
 	private EDirection aDirection;
 	private EHeroColor aColor;
 		
@@ -26,7 +28,8 @@ public class Hero
 		this.aDirection = EDirection.Down;
 		this.aColor = EHeroColor.Green;
 		this.aMoving = false;
-		this.aGameMap = pGameMap; 
+		this.aGameMap = pGameMap;
+		this.aSpeed = 5;
 	}
 	
 	public double mX()
@@ -72,41 +75,100 @@ public class Hero
 	public void mUpdate(double pDeltaTime)
 	{
 		if(this.aMoving)
-		{
+		{	
+			this.aMoveOffset = ((this.aMoveOffset + this.aSpeed * pDeltaTime) % 2) + 1;		
 			switch(this.aDirection)
 			{
 				case Up:
 				{
 					if(this.aY > 0)
 					{
-						this.aY--;
+						switch(this.aGameMap.mTerrainType((int)(this.aX), (int)(this.aY - 1)))					
+						{
+							case Grass:
+							case Water:
+							case Sand:
+							{
+								this.aY -= this.aSpeed * pDeltaTime;
+							}break;
+							default:
+							{
+								
+							}
+						}					
 					}
 				}break;
 				case Right:
 				{
-					if(this.aX < this.aGameMap.mWidth())
+					if(this.aX < this.aGameMap.mWidth() - 1)
 					{
-						
+						switch(this.aGameMap.mTerrainType((int)(this.aX + 1), (int)(this.aY)))					
+						{
+							case Grass:
+							case Water:
+							case Sand:
+							{
+								this.aX += this.aSpeed * pDeltaTime;
+							}break;
+							default:
+							{
+								
+							}
+						}
 					}
 				}break;
 				case Down:
 				{
-					this.aDirection = EDirection.Down;
-				}
+					if(this.aY < this.aGameMap.mHeight() - 1)
+					{
+						switch(this.aGameMap.mTerrainType((int)(this.aX), (int)(this.aY + 1)))					
+						{
+							case Grass:
+							case Water:
+							case Sand:
+							{
+								this.aY += this.aSpeed * pDeltaTime;
+							}break;
+							default:
+							{
+								
+							}
+						}						
+					}
+				}break;
 				case Left:
 				{
-					this.aDirection = EDirection.Left;
-				}
+					if(this.aX > 0)
+					{
+						switch(this.aGameMap.mTerrainType((int)(this.aX - 1), (int)(this.aY)))					
+						{
+							case Grass:
+							case Water:
+							case Sand:
+							{
+								this.aX -= this.aSpeed * pDeltaTime;
+							}break;
+							default:
+							{
+								
+							}
+						}						
+					}
+				}break;
 			}
+		}
+		else
+		{
+			this.aMoveOffset = 0;
 		}
 	}
 	
 	public void mDraw(GraphicsContext pGraphicsContext)
 	{
 		double vHorisontalTiles = this.aImage.getWidth() / this.aTileWidth;
-		double vXOffset = (this.aColor.ordinal() * 3) % vHorisontalTiles * this.aTileWidth;
-		double vYOffset = (int)(((this.aColor.ordinal() * 3) / vHorisontalTiles) + this.aDirection.ordinal()) * aTileHeight;
-		pGraphicsContext.drawImage(this.aImage, vXOffset, vYOffset, this.aTileWidth, this.aTileHeight, this.aX * this.aTileWidth, this.aY * this.aTileHeight, this.aTileWidth, this.aTileHeight);
+		double vXOffset = (this.aColor.ordinal() * 3) % vHorisontalTiles;
+		double vYOffset = (int)((this.aColor.ordinal() * 3) / vHorisontalTiles) + this.aDirection.ordinal();		
+		pGraphicsContext.drawImage(this.aImage, (vXOffset + (int)(this.aMoveOffset)) * this.aTileWidth, vYOffset * this.aTileHeight, this.aTileWidth, this.aTileHeight, this.aX * this.aTileWidth, this.aY * this.aTileHeight, this.aTileWidth, this.aTileHeight);
 	}
 
 	public void mKeyPress(KeyEvent e) 
@@ -127,12 +189,12 @@ public class Hero
 			{
 				this.aDirection = EDirection.Down;
 				this.aMoving = true;
-			}
+			}break;
 			case LEFT:
 			{
 				this.aDirection = EDirection.Left;
 				this.aMoving = true;
-			}
+			}break;
 		}
 	}
 

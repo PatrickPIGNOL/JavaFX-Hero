@@ -40,6 +40,11 @@ public class Game
 		
 	}
 	
+	public void mUpdate(double pDeltaTime)
+	{
+		this.aHero.mUpdate(pDeltaTime);
+	}
+	
 	public void mDraw(GraphicsContext pGraphicsContext)
 	{
 		this.mOnDraw(pGraphicsContext);

@@ -229,7 +229,7 @@ public class GameApplication extends Application
 	
 	private void mOnUpdate(double pDeltaTime)
 	{
-			
+		this.aGame.mUpdate(pDeltaTime);
 	}
 	
 	public void mDraw(GraphicsContext pGraphicsContext)
