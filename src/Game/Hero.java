@@ -19,6 +19,7 @@ public class Hero
 	private double aSpeed;
 	private EDirection aDirection;
 	private EHeroColor aColor;
+	private boolean aKeyPressed;
 		
 	public Hero(String pFileName, double pTileWidth, double pTileHeight, GameMap pGameMap)
 	{
@@ -75,86 +76,90 @@ public class Hero
 	public void mUpdate(double pDeltaTime)
 	{
 		if(this.aMoving)
-		{	
-			this.aMoveOffset = ((this.aMoveOffset + this.aSpeed * pDeltaTime) % 2) + 1;		
-			switch(this.aDirection)
+		{
+			if(!this.aKeyPressed)
 			{
-				case Up:
+				this.aMoveOffset = ((this.aMoveOffset + this.aSpeed * pDeltaTime) % 2) + 1;		
+				switch(this.aDirection)
 				{
-					if(this.aY > 0)
+					case Up:
 					{
-						switch(this.aGameMap.mTerrainType((int)(this.aX), (int)(this.aY - 1)))					
+						if(this.aY > 0)
 						{
-							case Grass:
-							case Water:
-							case Sand:
+							switch(this.aGameMap.mTerrainType((int)(this.aX), (int)(this.aY - 1)))					
 							{
-								this.aY -= this.aSpeed * pDeltaTime;
-							}break;
-							default:
-							{
-								
-							}
-						}					
-					}
-				}break;
-				case Right:
-				{
-					if(this.aX < this.aGameMap.mWidth() - 1)
+								case Grass:
+								case Water:
+								case Sand:
+								{
+									this.aY -= 1;//this.aSpeed * pDeltaTime;
+								}break;
+								default:
+								{
+									
+								}
+							}					
+						}
+					}break;
+					case Right:
 					{
-						switch(this.aGameMap.mTerrainType((int)(this.aX + 1), (int)(this.aY)))					
+						if(this.aX < this.aGameMap.mWidth() - 1)
 						{
-							case Grass:
-							case Water:
-							case Sand:
+							switch(this.aGameMap.mTerrainType((int)(this.aX + 1), (int)(this.aY)))					
 							{
-								this.aX += this.aSpeed * pDeltaTime;
-							}break;
-							default:
-							{
-								
+								case Grass:
+								case Water:
+								case Sand:
+								{
+									this.aX += 1;//this.aSpeed * pDeltaTime;
+								}break;
+								default:
+								{
+									
+								}
 							}
 						}
-					}
-				}break;
-				case Down:
-				{
-					if(this.aY < this.aGameMap.mHeight() - 1)
+					}break;
+					case Down:
 					{
-						switch(this.aGameMap.mTerrainType((int)(this.aX), (int)(this.aY + 1)))					
+						if(this.aY < this.aGameMap.mHeight() - 1)
 						{
-							case Grass:
-							case Water:
-							case Sand:
+							switch(this.aGameMap.mTerrainType((int)(this.aX), (int)(this.aY + 1)))					
 							{
-								this.aY += this.aSpeed * pDeltaTime;
-							}break;
-							default:
-							{
-								
-							}
-						}						
-					}
-				}break;
-				case Left:
-				{
-					if(this.aX > 0)
+								case Grass:
+								case Water:
+								case Sand:
+								{
+									this.aY += 1;//this.aSpeed * pDeltaTime;
+								}break;
+								default:
+								{
+									
+								}
+							}						
+						}
+					}break;
+					case Left:
 					{
-						switch(this.aGameMap.mTerrainType((int)(this.aX - 1), (int)(this.aY)))					
+						if(this.aX > 0)
 						{
-							case Grass:
-							case Water:
-							case Sand:
+							switch(this.aGameMap.mTerrainType((int)(this.aX - 1), (int)(this.aY)))					
 							{
-								this.aX -= this.aSpeed * pDeltaTime;
-							}break;
-							default:
-							{
-								
-							}
-						}						
-					}
-				}break;
+								case Grass:
+								case Water:
+								case Sand:
+								{
+									this.aX -= 1;//this.aSpeed * pDeltaTime;
+								}break;
+								default:
+								{
+									
+								}
+							}						
+						}
+					}break;
+				}
+				this.aKeyPressed = true;
 			}
 		}
 		else
@@ -201,5 +206,6 @@ public class Hero
 	public void mKeyRelease(KeyEvent e) 
 	{
 		this.aMoving = false;
+		this.aKeyPressed = false;
 	}
 }

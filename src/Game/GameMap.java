@@ -85,9 +85,12 @@ public class GameMap
 			}break;				
 			case 19:
 			case 20:
-			case 21:
 			{
 				vResult = ETerrainType.Water;
+			}break;
+			case 21:
+			{
+				vResult = ETerrainType.Sea;
 			}break;
 			case 37:
 			{
