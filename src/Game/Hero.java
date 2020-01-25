@@ -77,9 +77,9 @@ public class Hero
 	{
 		if(this.aMoving)
 		{
+			this.aMoveOffset = ((this.aMoveOffset + this.aSpeed * pDeltaTime) % 2) + 1;
 			if(!this.aKeyPressed)
-			{
-				this.aMoveOffset = ((this.aMoveOffset + this.aSpeed * pDeltaTime) % 2) + 1;		
+			{						
 				switch(this.aDirection)
 				{
 					case Up:
@@ -160,6 +160,25 @@ public class Hero
 					}break;
 				}
 				this.aKeyPressed = true;
+				switch(this.aGameMap.mTerrainType((int)this.aX, (int)this.aY))
+				{
+					case Water:
+					{
+						this.aColor = EHeroColor.Blue;
+					}break;
+					case Grass:
+					{
+						this.aColor = EHeroColor.Green;
+					}break;
+					case Sand:
+					{
+						this.aColor = EHeroColor.Gray;
+					}break;
+					default:
+					{
+						
+					}
+				}
 			}
 		}
 		else
@@ -172,7 +191,7 @@ public class Hero
 	{
 		double vHorisontalTiles = this.aImage.getWidth() / this.aTileWidth;
 		double vXOffset = (this.aColor.ordinal() * 3) % vHorisontalTiles;
-		double vYOffset = (int)((this.aColor.ordinal() * 3) / vHorisontalTiles) + this.aDirection.ordinal();		
+		double vYOffset = (int)((int)((this.aColor.ordinal() * 3) / vHorisontalTiles) * 4.0 + this.aDirection.ordinal());		
 		pGraphicsContext.drawImage(this.aImage, (vXOffset + (int)(this.aMoveOffset)) * this.aTileWidth, vYOffset * this.aTileHeight, this.aTileWidth, this.aTileHeight, this.aX * this.aTileWidth, this.aY * this.aTileHeight, this.aTileWidth, this.aTileHeight);
 	}
 
