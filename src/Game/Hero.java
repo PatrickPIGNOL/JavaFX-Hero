@@ -1,10 +1,12 @@
 package Game;
 
 import java.util.List;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class Hero
 {
@@ -75,9 +77,11 @@ public class Hero
 	
 	public void mUpdate(double pDeltaTime)
 	{
+		//this.aGameMap.mClearFog((int)this.aX, (int)this.aY, 5.0);
+		this.aGameMap.mClearFog2((int)this.aX, (int)this.aY, 5.0);
 		if(this.aMoving)
 		{
-			this.aMoveOffset = ((this.aMoveOffset + this.aSpeed * pDeltaTime) % 2) + 1;
+			this.aMoveOffset = (this.aMoveOffset + (this.aSpeed * pDeltaTime)) % 2;
 			if(!this.aKeyPressed)
 			{						
 				switch(this.aDirection)
@@ -92,7 +96,7 @@ public class Hero
 								case Water:
 								case Sand:
 								{
-									this.aY -= 1;//this.aSpeed * pDeltaTime;
+									this.aY -= 1;
 								}break;
 								default:
 								{
@@ -111,7 +115,7 @@ public class Hero
 								case Water:
 								case Sand:
 								{
-									this.aX += 1;//this.aSpeed * pDeltaTime;
+									this.aX += 1;
 								}break;
 								default:
 								{
@@ -130,7 +134,7 @@ public class Hero
 								case Water:
 								case Sand:
 								{
-									this.aY += 1;//this.aSpeed * pDeltaTime;
+									this.aY += 1;
 								}break;
 								default:
 								{
@@ -149,7 +153,7 @@ public class Hero
 								case Water:
 								case Sand:
 								{
-									this.aX -= 1;//this.aSpeed * pDeltaTime;
+									this.aX -= 1;
 								}break;
 								default:
 								{
@@ -192,7 +196,7 @@ public class Hero
 		double vHorisontalTiles = this.aImage.getWidth() / this.aTileWidth;
 		double vXOffset = (this.aColor.ordinal() * 3) % vHorisontalTiles;
 		double vYOffset = (int)((int)((this.aColor.ordinal() * 3) / vHorisontalTiles) * 4.0 + this.aDirection.ordinal());		
-		pGraphicsContext.drawImage(this.aImage, (vXOffset + (int)(this.aMoveOffset)) * this.aTileWidth, vYOffset * this.aTileHeight, this.aTileWidth, this.aTileHeight, this.aX * this.aTileWidth, this.aY * this.aTileHeight, this.aTileWidth, this.aTileHeight);
+		pGraphicsContext.drawImage(this.aImage, (vXOffset + (int)(this.aMoveOffset) + 1) * this.aTileWidth, vYOffset * this.aTileHeight, this.aTileWidth, this.aTileHeight, this.aX * this.aTileWidth, this.aY * this.aTileHeight, this.aTileWidth, this.aTileHeight);
 	}
 
 	public void mKeyPress(KeyEvent e) 
